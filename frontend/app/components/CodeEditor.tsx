@@ -12,8 +12,9 @@ export default function TheEditorComponent(){
     const editorRef = useRef();
     const [value,setValue] = useState<string | undefined>("");
     const [language,setLanguage] = useState("javascript");
-    const { socket, isConnected, sendMessage } = useWebsocket("https://tofu-samp.onrender.com");
+    const { socket, isConnected, sendMessage } = useWebsocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL!);
 
+    
     
     useEffect(() =>{
         if (socket) {

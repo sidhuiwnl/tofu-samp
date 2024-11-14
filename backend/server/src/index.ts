@@ -8,7 +8,7 @@ wss.on("connection", (ws) => {
   ws.on("message", (message: WebSocket.RawData) => {
     const data = JSON.parse(message.toString());
 
-   
+    
     wss.clients.forEach((client) => {
       if (client !== ws && client.readyState === WebSocket.OPEN) {
         client.send(JSON.stringify(data));
@@ -17,8 +17,8 @@ wss.on("connection", (ws) => {
   });
 
   ws.on("close", () => {
-    console.log("Client disconnected");
+    console.error("Client disconnected");
   });
 });
 
-console.log("WebSocket server is running on ws://localhost:8080");
+console.log("WebSocket server is running on ws://localhost:8000");
