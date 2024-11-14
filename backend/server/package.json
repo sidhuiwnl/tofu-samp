@@ -4,8 +4,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "node dist/index.js",
-    "watch" : "nodemon dist/index.js",
-    "build" : "tsc -b"
+    "watch": "nodemon dist/index.js",
+    "build": "tsc -b"
   },
   "keywords": [],
   "author": "",
@@ -18,7 +18,7 @@
     "ws": "^8.18.0"
   },
   "devDependencies": {
-    "@types/ws": "^8.5.12",
+    "@types/ws": "^8.5.13",
     "nodemon": "^3.1.7",
     "wrangler": "^3.73.0"
   }
