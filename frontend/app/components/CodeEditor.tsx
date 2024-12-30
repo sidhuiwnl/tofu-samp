@@ -7,17 +7,17 @@ import { CODE_SNIPPETS } from "@/lib/languages"
 import Output from "./Output"
 import { useWebsocket } from "@/hooks/useWebsocket"
 
+
 export default function TheEditorComponent(){
-    
+
     const editorRef = useRef();
     const [value,setValue] = useState<string | undefined>("");
     const [language,setLanguage] = useState("javascript");
-    const { socket, isConnected, sendMessage } = useWebsocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL!);
+    const { socket, isConnected, sendMessage } = useWebsocket();
 
-    
-    
     useEffect(() =>{
         if (socket) {
+
             socket.onmessage = (event) => {
                 const data = JSON.parse(event.data);
                 if (data.type === 'language_change') {
@@ -58,30 +58,31 @@ export default function TheEditorComponent(){
 
     
     return (
-        <div className="flex flex-row">
-            
-            <div>
-            <LanguageSelector language={language} onSelect={onSelect}/>
-             <Editor
-            className="p-4"
-             height="90vh"
-             width="50vw"
-             language={language}
-             defaultValue={(CODE_SNIPPETS as CODE_SNIPPETS)[language] ?? ""} 
-             theme="vs-dark"
-             value={value}
-             onChange={onChange}
-             onMount={onMount}
-             /> 
-            </div>
-            <div>
-                <Output editorRef={editorRef} language={language}/>
+        <div className="w-full max-w-8xl mx-auto px-4 py-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div>
+                    <LanguageSelector language={language} onSelect={onSelect}/>
+                    <Editor
+                        className="mt-4"
+                        height="88vh"
+                        width="100%"
+                        language={language}
+                        defaultValue={(CODE_SNIPPETS as CODE_SNIPPETS)[language] ?? ""}
+                        theme="vs-dark"
+                        value={value}
+                        onChange={onChange}
+                        onMount={onMount}
+                    />
+                </div>
+                <div>
+                    <Output editorRef={editorRef} language={language}/>
+                </div>
             </div>
         </div>
     )
 }
 
 
-type CODE_SNIPPETS =    {
-    [key : string]  :string
+type CODE_SNIPPETS = {
+    [key: string]: string
 }

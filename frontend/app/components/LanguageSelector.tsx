@@ -23,10 +23,11 @@ export default function LanguageSelector({
   return (
     <Box ml={2} className="p-4">
       <Text mb={2} fontSize="lg">
-        Language:
+        <span className="text-sm font-extrabold">Language:</span>
       </Text>
       <Menu isLazy>
-        <MenuButton as={Button}>{language}</MenuButton>
+        <MenuButton as={Button}
+        ><span className="text-sm">{language.toUpperCase()}</span></MenuButton>
         <MenuList bg="#110c1b">
           {languages.map(([lang, version]) => (
             <MenuItem

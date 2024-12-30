@@ -1,19 +1,26 @@
 import { useState,useEffect,useCallback } from "react";
+import {useToast} from "@chakra-ui/react";
 
 interface WebSocketMessage{
     type : string,
     [key : string] : any
 }
 
-export function useWebsocket(url : string){
+export function useWebsocket(){
+    const toast = useToast();
     const [socket,setSocket] = useState<WebSocket | null>(null);
     const [isConnected,setIsConnected] = useState(false);
 
     useEffect(() =>{
-        const ws = new WebSocket(url);
+        const ws = new WebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL!);
 
         ws.onopen = () =>{
             console.log('Connected to WebSocket server');
+            toast({
+                title : "WebSocket Connection Established",
+                status : "success",
+                isClosable: true
+            })
             setIsConnected(true);
             setSocket(ws);
         }
@@ -32,7 +39,7 @@ export function useWebsocket(url : string){
               ws.close();
             }
           };
-    },[url]);
+    },[toast]);
 
     const sendMessage = useCallback((message : WebSocketMessage) =>{
       if(socket && socket.readyState === WebSocket.OPEN){

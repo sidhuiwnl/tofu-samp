@@ -12,7 +12,7 @@ export default function Output({editorRef,language} : {editorRef: any,language :
    const [isLoading,setIsLoading] = useState(false);
    const [isError,setIsError] = useState(false);
 
-   const { socket,isConnected,sendMessage} = useWebsocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL!);
+   const { socket,isConnected,sendMessage} = useWebsocket();
 
    
    useEffect(() => {
@@ -67,26 +67,27 @@ export default function Output({editorRef,language} : {editorRef: any,language :
 
   return (
     <Box ml={2} className="p-4">
-      <Text mb={4} fontSize="lg">
-        Output
-      </Text>
-      <Button
-        variant="outline"
-        colorScheme="green"
-        mb={4}
+        <Text mb={4} fontSize="lg">
+            <span className="text-sm font-extrabold">Output:</span>
+        </Text>
+        <Button
+            variant={"default"}
+            mb={4}
         onClick={output}
         isLoading={isLoading}
+        className="px-2 py-1 bg-black  text-white text-center font-sans font-medium border-neutral-800 rounded-sm "
       >
-        Run Code
+       <span className="text-sm font-medium">Run Code</span>
       </Button>
       <Box
-        height="90vh"
+        height="87vh"
         width="40vw"
         p={2}
         color={isError ? "red.400" : "" }
-        border="1px solid"
+        border="2px solid"
         borderRadius={4}
         borderColor={isError ? "red.500" : "#333"}
+        className="bg-neutral-900 text-white mt-1.5 overflow-auto"
       >
         {codeOutput.length > 0 ? (
            <VStack align="start" spacing={1}>
